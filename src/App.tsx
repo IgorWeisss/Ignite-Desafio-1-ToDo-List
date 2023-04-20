@@ -2,6 +2,22 @@ import { EmptyList } from "./components/EmptyList";
 import { Logo } from "./components/Logo";
 import { NewTask } from "./components/NewTask";
 
+import { v4 as uuidv4 } from 'uuid';
+import { Task } from "./components/Task";
+
+const tasks = [
+  {
+    id: uuidv4(),
+    completed: true,
+    content: 'Criar Tasks'
+  },
+  {
+    id: uuidv4(),
+    completed: false,
+    content: 'Criar Tasks'
+  }
+]
+
 export function App() {
 
   return (
@@ -30,7 +46,18 @@ export function App() {
             </p>
           </div>
 
-          <EmptyList />
+          { tasks.length === 0 
+            ? <EmptyList /> 
+            : tasks.map(task => {
+              return (
+                <Task 
+                  completed={task.completed}
+                  content={task.content}
+                  key={task.id}
+                />
+              )
+            })
+          }
           
         </div>
       </div>
