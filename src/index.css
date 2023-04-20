@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, sans-serif;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  @apply bg-gray-600 text-gray-100
+}
+
+:focus {
+  outline: transparent;
+}
+
+button, input, optgroup, select, textarea {
+  line-height: 1.4;
+}
+
+
