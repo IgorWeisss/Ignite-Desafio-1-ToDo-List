@@ -13,7 +13,7 @@ export function NewTask () {
       <button
         type="submit"
         className="flex items-center justify-center gap-2 p-4 rounded-xl 
-        bg-blue-dark focus:bg-blue font-bold text-[0.875rem] transition-colors"
+        bg-blue-dark hover:bg-blue font-bold text-[0.875rem] transition-colors"
       >
         Criar
         <PlusCircle size={20}/>

@@ -9,7 +9,7 @@ const tasks = [
   {
     id: uuidv4(),
     completed: true,
-    content: 'Criar Tasks'
+    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus repellendus cumque voluptatem molestias, unde praesentium, aliquid inventore nisi optio saepe nihil nostrum, cum distinctio laudantium officia facilis obcaecati ea omnis.'
   },
   {
     id: uuidv4(),
@@ -37,12 +37,24 @@ export function App() {
             <p
               className="font-bold text-[0.875rem] text-blue"
             >
-              Tarefas criadas <span className="bg-gray-400 text-gray-200 px-2 py-[0.125rem] rounded-full">0</span>
+              Tarefas criadas
+              <span
+                className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] 
+                rounded-full"
+              >
+                0
+              </span>
             </p>
             <p
               className="font-bold text-[0.875rem] text-purple"
             >
-              Concluídas <span className="bg-gray-400 text-gray-200 px-2 py-[0.125rem] rounded-full">0</span>
+              Concluídas
+              <span
+                className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] 
+                rounded-full"
+              >
+                2 de 5
+              </span>
             </p>
           </div>
 
