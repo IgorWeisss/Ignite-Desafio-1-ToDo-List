@@ -4,8 +4,9 @@ import { NewTask } from "./components/NewTask";
 
 import { v4 as uuidv4 } from 'uuid';
 import { Task } from "./components/Task";
+import { useState } from "react";
 
-const tasks = [
+const tasksRaw = [
   {
     id: uuidv4(),
     completed: true,
@@ -19,6 +20,24 @@ const tasks = [
 ]
 
 export function App() {
+
+  const [tasks, setTasks] = useState(tasksRaw)
+
+  function handleSetTasks (completed:boolean, id:string) {
+    const newTasks = tasks.map(task => {
+      if (task.id === id) {
+        task.completed = !completed
+        return task
+      }
+      return task
+    })
+    setTasks(newTasks)
+  }
+
+  const numberOfCompletedTasks = tasks.reduce((acc, cur) => {
+    if (cur.completed) acc ++
+    return acc
+  },0)
 
   return (
     <div>
@@ -42,7 +61,7 @@ export function App() {
                 className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] 
                 rounded-full"
               >
-                0
+                {tasks.length}
               </span>
             </p>
             <p
@@ -53,7 +72,7 @@ export function App() {
                 className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] 
                 rounded-full"
               >
-                2 de 5
+                {`${numberOfCompletedTasks} de ${tasks.length}`}
               </span>
             </p>
           </div>
@@ -63,9 +82,9 @@ export function App() {
             : tasks.map(task => {
               return (
                 <Task 
-                  completed={task.completed}
-                  content={task.content}
+                  task={task}
                   key={task.id}
+                  handleSetTasks={handleSetTasks}
                 />
               )
             })
