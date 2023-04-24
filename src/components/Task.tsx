@@ -10,16 +10,17 @@ export interface Task {
 
 interface TaskProps {
   task: Task
-  handleSetTasks: (completed:boolean, id: string) => void
+  handleSetTasks: (task: Task) => void
+  handleDeleteTask: (task: Task) => void
 }
 
-export function Task({ task, handleSetTasks }: TaskProps) {
+export function Task({ task, handleSetTasks, handleDeleteTask }: TaskProps) {
 
   const strikeText = task.completed ? "line-through text-gray-300" : ""
   
   function handleCompleteTask () {
-    //Separar responsabilidades AQUI
-    handleSetTasks(task.completed, task.id)
+    task.completed = !task.completed
+    handleSetTasks(task)
   }
 
   return (
@@ -48,6 +49,7 @@ export function Task({ task, handleSetTasks }: TaskProps) {
       </div>
       <p className={`flex-1 text-[0.875rem] text-gray-100 ${strikeText}`}>{task.content}</p>
       <button
+        onClick={() => handleDeleteTask(task)}
         className="flex items-center justify-center w-6 h-6 
       text-gray-300 hover:bg-gray-400 hover:text-danger rounded 
         transition-all"

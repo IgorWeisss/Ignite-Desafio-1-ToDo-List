@@ -2,36 +2,47 @@ import { EmptyList } from "./components/EmptyList";
 import { Logo } from "./components/Logo";
 import { NewTask } from "./components/NewTask";
 
-import { v4 as uuidv4 } from 'uuid';
 import { Task } from "./components/Task";
-import { useState } from "react";
-
-const tasksRaw = [
-  {
-    id: uuidv4(),
-    completed: true,
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus repellendus cumque voluptatem molestias, unde praesentium, aliquid inventore nisi optio saepe nihil nostrum, cum distinctio laudantium officia facilis obcaecati ea omnis.'
-  },
-  {
-    id: uuidv4(),
-    completed: false,
-    content: 'Criar Tasks'
-  }
-]
+import { useEffect, useState } from "react";
 
 export function App() {
 
-  const [tasks, setTasks] = useState(tasksRaw)
+  const [tasks, setTasks] = useState<Task[]>([])
 
-  function handleSetTasks (completed:boolean, id:string) {
+  useEffect(() => {
+    const res = JSON.parse(localStorage.getItem('todoTasks') || '[]')
+    console.log(res)    
+    setTasks(res)
+  },[])
+
+  function saveToLocalStorage(item:Task[]) {
+    localStorage.setItem('todoTasks', JSON.stringify(item))
+  }
+
+  function handleSetTasks (modifiedTask:Task) {
     const newTasks = tasks.map(task => {
-      if (task.id === id) {
-        task.completed = !completed
-        return task
+      if (task.id === modifiedTask.id) {
+        return modifiedTask
       }
       return task
-    })
+    }) 
+
     setTasks(newTasks)
+    saveToLocalStorage(newTasks)
+  }
+
+  function handleDeleteTask (taskToDelete: Task) {
+    const newTasks = tasks.filter(task => task.id !== taskToDelete.id)
+
+    setTasks(newTasks)
+    saveToLocalStorage(newTasks)
+  }
+
+  function handleCreateNewTask (task:Task) {
+    const newTask = [...tasks]
+    newTask.push(task)
+    setTasks(newTask)
+    saveToLocalStorage(newTask)
   }
 
   const numberOfCompletedTasks = tasks.reduce((acc, cur) => {
@@ -47,7 +58,9 @@ export function App() {
         </div>
       </header>
       <div className="flex flex-col max-w-[46rem] mx-auto -mt-[1.75rem]">
-        <NewTask />
+        <NewTask 
+          handleCreateNewTask={handleCreateNewTask}
+        />
         <div className="tasksPannel mt-[4rem] flex flex-col gap-6">
           
           <div
@@ -85,6 +98,7 @@ export function App() {
                   task={task}
                   key={task.id}
                   handleSetTasks={handleSetTasks}
+                  handleDeleteTask={handleDeleteTask}
                 />
               )
             })
