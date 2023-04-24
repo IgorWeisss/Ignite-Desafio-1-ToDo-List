@@ -52,13 +52,13 @@ export function App() {
   const completedPercentage = numberOfCompletedTasks / tasks.length * 100
 
   return (
-    <div>
+    <div className="">
       <header className="flex items-center justify-center w-full h-[200px] bg-gray-700">
         <div>
           <Logo />
         </div>
       </header>
-      <div className="flex flex-col max-w-[46rem] mx-auto -mt-[1.75rem]">
+      <div className="flex flex-col max-w-[46rem] px-8 md:px-0 mx-auto -mt-[1.75rem]">
         <NewTask 
           handleCreateNewTask={handleCreateNewTask}
         />
@@ -67,7 +67,7 @@ export function App() {
           {tasks.length > 0 && 
             <div
               className="flex relative justify-center items-center rounded-lg 
-              w-full h-10  overflow-hidden ring-1 ring-gray-400"
+              w-full h-14  overflow-hidden ring-1 ring-gray-400"
             >
               <p
                 className="text-gray-200 font-bold text-[0.875rem] z-20"
@@ -84,8 +84,8 @@ export function App() {
                 >
                 </div>
                 <span
-                  className="absolute h-14 w-14 bg-purple-dark transition-all 
-                  duration-1000 rounded-2xl -ml-12 animate-spin"
+                  className="absolute h-[4.5rem] w-[4.5rem] bg-purple-dark transition-all 
+                  duration-1000 rounded-3xl -ml-[3.7rem] animate-spin"
                   style={{left: `calc(${completedPercentage}%)`}}
                 >
                 </span>
