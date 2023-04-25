@@ -59,33 +59,22 @@ export function App() {
         </div>
       </header>
       <div className="flex flex-col max-w-[46rem] px-8 md:px-0 mx-auto -mt-[1.75rem]">
-        <NewTask 
-          handleCreateNewTask={handleCreateNewTask}
-        />
+        <NewTask handleCreateNewTask={handleCreateNewTask}/>
         <div className="tasksPannel mt-[4rem] flex flex-col gap-6">
           
           {tasks.length > 0 && 
-            <div
-              className="flex relative justify-center items-center rounded-lg 
-              w-full h-14  overflow-hidden ring-1 ring-gray-400"
-            >
-              <p
-                className="text-gray-200 font-bold text-[0.875rem] z-20"
-              >
+            <div className="flex relative justify-center items-center rounded-lg w-full h-14  overflow-hidden ring-1 ring-gray-400">
+              <p className="text-gray-200 font-bold text-[0.875rem] z-20">
                 {`${completedPercentage.toFixed(0)}%`}
               </p>
-              <div
-                className="flex justify-start items-center h-full w-full absolute"
-              >
+              <div className="flex justify-start items-center h-full w-full absolute">
                 <div
-                  className={`bg-gradient-to-r from-blue to-purple-dark 
-                  to-90% z-10 h-full transition-all duration-1000`}
+                  className={`bg-gradient-to-r from-blue to-purple-dark to-90% z-10 h-full transition-all duration-1000`}
                   style={{width: `${completedPercentage}%`}}
                 >
                 </div>
                 <span
-                  className="absolute h-[4.5rem] w-[4.5rem] bg-purple-dark transition-all 
-                  duration-1000 rounded-3xl -ml-[3.7rem] animate-spin"
+                  className="absolute h-[4.5rem] w-[4.5rem] bg-purple-dark transition-all duration-1000 rounded-3xl -ml-[3.7rem] animate-spin"
                   style={{left: `calc(${completedPercentage}%)`}}
                 >
                 </span>
@@ -94,28 +83,16 @@ export function App() {
             </div>
           }
 
-          <div
-            className="flex grow justify-between"
-          >
-            <p
-              className="font-bold text-[0.875rem] text-blue"
-            >
+          <div className="flex grow justify-between">
+            <p className="font-bold text-[0.875rem] text-blue">
               Tarefas criadas
-              <span
-                className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] 
-                rounded-full"
-              >
+              <span className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] rounded-full">
                 {tasks.length}
               </span>
             </p>
-            <p
-              className="font-bold text-[0.875rem] text-purple"
-            >
+            <p className="font-bold text-[0.875rem] text-purple">
               Concluídas
-              <span
-                className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] 
-                rounded-full"
-              >
+              <span className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] rounded-full">
                 {`${numberOfCompletedTasks} de ${tasks.length}`}
               </span>
             </p>

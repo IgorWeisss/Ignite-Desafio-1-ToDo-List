@@ -40,9 +40,7 @@ export function NewTask ({handleCreateNewTask}:NewTaskProps) {
       onSubmit={handleNewTask}
     >
       <input
-        className="w-full text-base p-4 bg-gray-500 
-        placeholder:text-gray-300 text-gray-100 rounded-lg focus:ring-1 
-        ring-purple-dark transition-shadow"
+        className="w-full text-base p-4 bg-gray-500 placeholder:text-gray-300 text-gray-100 rounded-lg focus:ring-1 ring-purple-dark transition-shadow"
         type="text"
         value={taskContent}
         onInvalid={handleInvalidTask}
@@ -52,8 +50,7 @@ export function NewTask ({handleCreateNewTask}:NewTaskProps) {
       />
       <button
         type="submit"
-        className="flex items-center justify-center gap-2 p-4 rounded-xl 
-        bg-blue-dark hover:bg-blue font-bold text-[0.875rem] transition-colors"
+        className="flex items-center justify-center gap-2 p-4 rounded-xl bg-blue-dark hover:bg-blue font-bold text-[0.875rem] transition-colors"
       >
         Criar
         <PlusCircle size={20}/>
