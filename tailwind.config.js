@@ -6,6 +6,20 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        liquid1: 'liquid 6s infinite linear',
+        liquid2: 'liquid 6s infinite linear 300ms',
+      },
+      keyframes: {
+        liquid: {
+          '0%': {
+            transform: 'rotate(0deg)',
+          },
+          '100%': {
+            transform: 'rotate(360deg)',
+          }
+        }
+      },
       colors: {
         'purple': '#8284FA',
         'purple-dark': '#5E60CE',

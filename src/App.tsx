@@ -49,10 +49,10 @@ export function App() {
     return acc
   },0)
 
-  const completedPercentage = numberOfCompletedTasks / tasks.length * 100
+  const completedPercentage = (numberOfCompletedTasks / tasks.length * 100) + 3
 
   return (
-    <div className="">
+    <div>
       <header className="flex items-center justify-center w-full h-[200px] bg-gray-700">
         <div>
           <Logo />
@@ -63,27 +63,29 @@ export function App() {
         <div className="tasksPannel mt-[4rem] flex flex-col gap-6">
           
           {tasks.length > 0 && 
-            <div className="flex relative justify-center items-center rounded-lg w-full h-14  overflow-hidden ring-1 ring-gray-400">
+            <div className="relative flex items-center justify-center w-full overflow-hidden rounded-lg h-14 ring-1 ring-gray-400">
               <p className="text-gray-200 font-bold text-[0.875rem] z-20">
-                {`${completedPercentage.toFixed(0)}%`}
+                {`${(completedPercentage - 3).toFixed(0)}%`}
               </p>
-              <div className="flex justify-start items-center h-full w-full absolute">
+              <div className="absolute flex items-center justify-start w-full h-full">
                 <div
                   className={`bg-gradient-to-r from-blue to-purple-dark to-90% z-10 h-full transition-all duration-1000`}
-                  style={{width: `${completedPercentage}%`}}
+                  style={{width: `calc(${completedPercentage}%)`}}
                 >
                 </div>
-                <span
-                  className="absolute h-[4.5rem] w-[4.5rem] bg-purple-dark transition-all duration-1000 rounded-3xl -ml-[3.7rem] animate-spin"
-                  style={{left: `calc(${completedPercentage}%)`}}
-                >
-                </span>
-
               </div>
+              <span
+                className="w-44 h-44 bg-gray-600 absolute rounded-[40%] z-10 animate-liquid1 transition-all duration-1000"
+                style={{left: `calc(${completedPercentage}% - 0.2rem)`}}
+              />
+              <span
+                className="w-44 h-44 bg-gray-600 opacity-30 absolute rounded-[40%] z-10 animate-liquid2 transition-all duration-1000"
+                style={{left: `calc(${completedPercentage}% - 0.9rem)`}}
+              />
             </div>
           }
 
-          <div className="flex grow justify-between">
+          <div className="flex justify-between grow">
             <p className="font-bold text-[0.875rem] text-blue">
               Tarefas criadas
               <span className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] rounded-full">
