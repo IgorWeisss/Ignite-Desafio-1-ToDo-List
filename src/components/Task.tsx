@@ -24,8 +24,8 @@ export function Task({ task, handleSetTasks, handleDeleteTask }: TaskProps) {
   }
 
   return (
-    <div className="flex justify-between items-start p-4 gap-3 rounded-lg ring-1 ring-gray-400 bg-gray-500">
-      <div className="w-6 h-6 flex items-center justify-center">
+    <div className="flex items-start justify-between gap-3 p-4 bg-gray-500 rounded-lg ring-1 ring-gray-400">
+      <div className="flex items-center justify-center w-6 h-6">
         <Checkbox.Root
           onClick={handleCompleteTask}
           checked={task.completed}
@@ -41,7 +41,7 @@ export function Task({ task, handleSetTasks, handleDeleteTask }: TaskProps) {
       </p>
       <button
         onClick={() => handleDeleteTask(task)} 
-        className="flex items-center justify-center w-6 h-6 text-gray-300 hover:bg-gray-400 hover:text-danger rounded transition-all"
+        className="flex items-center justify-center w-6 h-6 text-gray-300 transition-all rounded hover:bg-gray-400 hover:text-danger"
       >
         <Trash size={18} />
       </button>
