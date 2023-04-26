@@ -1,7 +1,7 @@
 import * as Checkbox from '@radix-ui/react-checkbox'
 
 import { Check, Trash } from 'phosphor-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export interface Task {
   id: string
@@ -13,11 +13,16 @@ interface TaskProps {
   task: Task
   modifyTask: (task: Task) => void
   deleteTask: (task: Task) => void
+  unmount: boolean
 }
 
-export function Task({ task, modifyTask, deleteTask }: TaskProps) {
+export function Task({ task, modifyTask, deleteTask,  unmount  }: TaskProps) {
 
   const [willUnmount, setWillUnmount] = useState(false)
+
+  useEffect(() => {
+    setWillUnmount(unmount)
+  }, [unmount])
 
   const animation = willUnmount ? "animate-fade-left animate-duration-500 animate-alternate-reverse animate-fill-forwards" : "animate-fade-right animate-duration-500 animate-alternate animate-fill-backwards"
   

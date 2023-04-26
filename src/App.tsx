@@ -9,6 +9,8 @@ export function App() {
 
   const [tasks, setTasks] = useState<Task[]>([])
 
+  const [willUnmount, setWillUnmount] = useState<Task[]>([])
+
   useEffect(() => {
     const res = JSON.parse(localStorage.getItem('todoTasks') || '[]')
     setTasks(res)
@@ -35,6 +37,17 @@ export function App() {
 
     setTasks(newTasks)
     saveToLocalStorage(newTasks)
+  }
+
+  function handleRemoveCompletedTasks () {
+    const tasksThatWillUnmount = tasks.filter(task => task.completed)
+    setWillUnmount(tasksThatWillUnmount)
+    
+    const newTasks = tasks.filter(task => !task.completed)
+    setTimeout(() => {
+      setTasks(newTasks)
+      saveToLocalStorage(newTasks)
+    }, 600);
   }
 
   function handleCreateNewTask (task:Task) {
@@ -85,19 +98,27 @@ export function App() {
             </div>
           }
 
-          <div className="flex justify-between grow transition-all duration-500">
+          <div className="relative flex justify-between grow transition-all duration-500">
             <p className="font-bold text-[0.875rem] text-blue">
               Tarefas criadas
-              <span className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] rounded-full">
+              <span className="inline-block bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] rounded-full">
                 {tasks.length}
               </span>
             </p>
             <p className="font-bold text-[0.875rem] text-purple">
               Concluídas
-              <span className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] rounded-full">
+              <span className="inline-block bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] rounded-full">
                 {`${numberOfCompletedTasks} de ${tasks.length}`}
               </span>
             </p>
+            {numberOfCompletedTasks > 0 &&
+              <button
+                className="bg-gray-400 text-gray-200 px-2 py-[0.125rem] border-none box-border rounded-full font-bold text-[0.875rem] hover:brightness-125 transition"
+                onClick={handleRemoveCompletedTasks}
+              >
+                Remover concluídas
+              </button>
+            }
           </div>
 
           { tasks.length === 0 
@@ -109,6 +130,7 @@ export function App() {
                   key={task.id}
                   modifyTask={modifyTask}
                   deleteTask={deleteTask}
+                  unmount={willUnmount.indexOf(task) !== -1 ? true : false}
                 />
               )
             })

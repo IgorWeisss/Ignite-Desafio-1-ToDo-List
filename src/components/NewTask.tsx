@@ -50,7 +50,7 @@ export function NewTask ({handleCreateNewTask}:NewTaskProps) {
       />
       <button
         type="submit"
-        className="flex items-center justify-center gap-2 p-4 rounded-xl bg-blue-dark hover:bg-blue font-bold text-[0.875rem] transition-colors"
+        className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gradient-to-t from-blue-dark to-purple-dark filter hover:brightness-125 font-bold text-[0.875rem] transition"
       >
         Criar
         <PlusCircle size={20}/>
