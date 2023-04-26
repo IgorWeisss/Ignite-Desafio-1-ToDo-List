@@ -9,16 +9,22 @@ export function App() {
 
   const [tasks, setTasks] = useState<Task[]>([])
 
+  const [animation, setAnimation] = useState('')
+
   useEffect(() => {
     const res = JSON.parse(localStorage.getItem('todoTasks') || '[]')
     setTasks(res)
   },[])
 
+  function animateProgressBarBeforeUnmount () {
+    if (tasks.length === 1) setAnimation('animate-fade-left animate-duration-500 animate-alternate-reverse animate-fill-forwards')
+  }
+
   function saveToLocalStorage(item:Task[]) {
     localStorage.setItem('todoTasks', JSON.stringify(item))
   }
 
-  function handleSetTasks (modifiedTask:Task) {
+  function modifyTask (modifiedTask:Task) {
     const newTasks = tasks.map(task => {
       if (task.id === modifiedTask.id) {
         return modifiedTask
@@ -30,7 +36,7 @@ export function App() {
     saveToLocalStorage(newTasks)
   }
 
-  function handleDeleteTask (taskToDelete: Task) {
+  function deleteTask (taskToDelete: Task) {
     const newTasks = tasks.filter(task => task.id !== taskToDelete.id)
 
     setTasks(newTasks)
@@ -39,6 +45,9 @@ export function App() {
 
   function handleCreateNewTask (task:Task) {
     const newTask = [...tasks]
+    if (newTask.length === 0) {
+      setAnimation('')
+    }
     newTask.push(task)
     setTasks(newTask)
     saveToLocalStorage(newTask)
@@ -63,7 +72,7 @@ export function App() {
         <div className="tasksPannel mt-[4rem] flex flex-col gap-6">
           
           {tasks.length > 0 && 
-            <div className="relative flex items-center justify-center w-full overflow-hidden rounded-lg h-14 ring-1 ring-gray-400">
+            <div className={`relative flex items-center justify-center w-full overflow-hidden rounded-lg h-14 ring-1 ring-gray-400 animate-fade-right animate-duration-500 animate-alternate animate-fill-backwards ${animation}`}>
               <p className="text-gray-200 font-bold text-[0.875rem] z-20">
                 {`${(completedPercentage - 3).toFixed(0)}%`}
               </p>
@@ -85,7 +94,7 @@ export function App() {
             </div>
           }
 
-          <div className="flex justify-between grow">
+          <div className="flex justify-between grow transition-all duration-500">
             <p className="font-bold text-[0.875rem] text-blue">
               Tarefas criadas
               <span className="bg-gray-400 ml-2 text-gray-200 px-2 py-[0.125rem] rounded-full">
@@ -107,8 +116,9 @@ export function App() {
                 <Task 
                   task={task}
                   key={task.id}
-                  handleSetTasks={handleSetTasks}
-                  handleDeleteTask={handleDeleteTask}
+                  modifyTask={modifyTask}
+                  deleteTask={deleteTask}
+                  animateProgressBarBeforeUnmount={animateProgressBarBeforeUnmount}
                 />
               )
             })

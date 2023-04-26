@@ -1,6 +1,7 @@
 import * as Checkbox from '@radix-ui/react-checkbox'
 
 import { Check, Trash } from 'phosphor-react'
+import { useState } from 'react'
 
 export interface Task {
   id: string
@@ -10,21 +11,34 @@ export interface Task {
 
 interface TaskProps {
   task: Task
-  handleSetTasks: (task: Task) => void
-  handleDeleteTask: (task: Task) => void
+  modifyTask: (task: Task) => void
+  deleteTask: (task: Task) => void
+  animateProgressBarBeforeUnmount: () => void
 }
 
-export function Task({ task, handleSetTasks, handleDeleteTask }: TaskProps) {
+export function Task({ task, modifyTask, deleteTask, animateProgressBarBeforeUnmount }: TaskProps) {
 
+  const [willUnmount, setWillUnmount] = useState(false)
+
+  const animation = willUnmount ? "animate-fade-left animate-duration-500 animate-alternate-reverse animate-fill-forwards" : "animate-fade-right animate-duration-500 animate-alternate animate-fill-backwards"
+  
   const strikeText = task.completed ? "line-through text-gray-300" : ""
   
   function handleCompleteTask () {
     task.completed = !task.completed
-    handleSetTasks(task)
+    modifyTask(task)
+  }
+
+  function handleDeleteTask () {
+    setWillUnmount(true)
+    animateProgressBarBeforeUnmount()
+    setTimeout(() => {
+      deleteTask(task)
+    }, 500)
   }
 
   return (
-    <div className="flex items-start justify-between gap-3 p-4 bg-gray-500 rounded-lg ring-1 ring-gray-400">
+    <div className={`flex items-start justify-between gap-3 p-4 bg-gray-500 rounded-lg ring-1 ring-gray-400 ${animation}`}>
       <div className="flex items-center justify-center w-6 h-6">
         <Checkbox.Root
           onClick={handleCompleteTask}
@@ -40,7 +54,7 @@ export function Task({ task, handleSetTasks, handleDeleteTask }: TaskProps) {
         {task.content}
       </p>
       <button
-        onClick={() => handleDeleteTask(task)} 
+        onClick={handleDeleteTask} 
         className="flex items-center justify-center w-6 h-6 text-gray-300 transition-all rounded hover:bg-gray-400 hover:text-danger"
       >
         <Trash size={18} />
