@@ -17,6 +17,7 @@ Tive grandes aprendizados no decorrer do desenvolvimento e foi muito interessant
 - Mostrar o progresso de conclusão das tarefas
 
 ## Melhorias desenvolvidas:
+* Todas as tarefas são salvas em local storage
 * Barra de progresso de conclusão com animação "líquida"
 * Botão para remover todas as tarefas concluídas
 * Animações para os componentes
