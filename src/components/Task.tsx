@@ -13,10 +13,9 @@ interface TaskProps {
   task: Task
   modifyTask: (task: Task) => void
   deleteTask: (task: Task) => void
-  animateProgressBarBeforeUnmount: () => void
 }
 
-export function Task({ task, modifyTask, deleteTask, animateProgressBarBeforeUnmount }: TaskProps) {
+export function Task({ task, modifyTask, deleteTask }: TaskProps) {
 
   const [willUnmount, setWillUnmount] = useState(false)
 
@@ -31,7 +30,6 @@ export function Task({ task, modifyTask, deleteTask, animateProgressBarBeforeUnm
 
   function handleDeleteTask () {
     setWillUnmount(true)
-    animateProgressBarBeforeUnmount()
     setTimeout(() => {
       deleteTask(task)
     }, 500)
